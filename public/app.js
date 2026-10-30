@@ -11,7 +11,21 @@ async function parse(res){const data=await res.json().catch(()=>({}));if(!res.ok
 function drawResults(data){current=data;const boy=Number(data.boy)||0,girl=Number(data.girl)||0,total=boy+girl,pct=total?Math.round(100*boy/total):0;
 $('#boy-count').textContent=boy;$('#girl-count').textContent=girl;$('#boy-percent').textContent=pct+'%';$('#girl-percent').textContent=(total?100-pct:0)+'%';$('#boy-bar').style.width=pct+'%';$('#girl-bar').style.width=(total?100-pct:0)+'%';$('#total-votes').textContent=total;$('#thanks-line').textContent=data.yourChoice?`${data.yourName?data.yourName+', ':''}you guessed Team ${data.yourChoice==='boy'?'Boy':'Girl'} ♡`:'';show('results-screen')}
 function reveal(data){current=data;if(actual!=='boy'&&actual!=='girl'){drawResults(data);return;}const girl=actual==='girl';$('#answer-art').src=girl?'/assets/girl.webp':'/assets/boy.webp';$('#answer-art').alt=girl?'Watercolor celebration: it’s a girl':'Watercolor celebration: it’s a boy';$('#answer-title').textContent=girl?"It's a Girl!":"It's a Boy!";$('#answer-screen').classList.toggle('is-girl',girl);$('#answer-caption').textContent=(data.yourName?data.yourName+', t':'T')+'hank you for celebrating with us!';show('answer-screen')}
-$('#envelope-trigger').addEventListener('click',()=>{if(started)return;started=true;$('#envelope-trigger').disabled=true;$('#intro-screen').classList.add('is-opening');const duration=window.matchMedia('(prefers-reduced-motion: reduce)').matches?100:950;setTimeout(()=>{if(current?.yourChoice)reveal(current);else show('party-screen')},duration)});
+$('#envelope-trigger').addEventListener('click',()=>{
+  if(started)return;
+  started=true;
+  $('#envelope-trigger').disabled=true;
+  // The destination is shown immediately; a temporary cover image fades out over it.
+  // There is no intermediate screen or enforced 1.1s waiting state.
+  const cover=$('#invitation-scene');
+  const ghost=document.createElement('div'); ghost.className='opening-ghost';
+  ghost.innerHTML='<img src="/assets/cover.webp" alt="" aria-hidden="true">';
+  document.body.appendChild(ghost);
+  if(current?.yourChoice)reveal(current);else show('party-screen');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>ghost.classList.add('depart')));
+  ghost.addEventListener('transitionend',()=>ghost.remove(),{once:true});
+  setTimeout(()=>ghost.remove(),1000);
+});
 for(const b of document.querySelectorAll('[data-choice]'))b.addEventListener('click',()=>{if(busy)return;selected=b.dataset.choice;document.querySelectorAll('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));voteReady()});
 $('#voter-name').addEventListener('input',voteReady);
 $('#voting-form').addEventListener('submit',async e=>{e.preventDefault();if(busy||!selected)return;const name=$('#voter-name').value.trim();if(!name){$('#voter-name').focus();return;}busy=true;voteReady();$('#loading-overlay').classList.remove('hidden');$('#status-message').textContent='';try{const res=await fetch('/api/votes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({voterId,choice:selected,name})});const data=await parse(res);reveal(data)}catch(e){error(e)}finally{busy=false;voteReady();$('#loading-overlay').classList.add('hidden')}});

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" fill="none">
+  <defs>
+    <linearGradient id="cp" x1="38" y1="38" x2="220" y2="134" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF5F7"/>
+      <stop offset="1" stop-color="#F2E1E6"/>
+    </linearGradient>
+    <filter id="s" x="0" y="0" width="280" height="180" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="8"/>
+      <feGaussianBlur stdDeviation="8"/>
+      <feColorMatrix values="0 0 0 0 0.63 0 0 0 0 0.58 0 0 0 0 0.53 0 0 0 0.14 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1_3"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow_1_3" result="shape"/>
+    </filter>
+  </defs>
+  <g filter="url(#s)">
+    <path d="M66 136C35 136 16 118 16 93C16 67 37 48 63 50C70 34 88 22 112 22C136 22 157 36 164 57C170 54 177 52 184 52C212 52 235 71 240 98C255 101 264 113 264 126C264 145 245 160 220 160H66C66 160 66 160 66 160Z" fill="url(#cp)"/>
+    <path d="M66 136C35 136 16 118 16 93C16 67 37 48 63 50C70 34 88 22 112 22C136 22 157 36 164 57C170 54 177 52 184 52C212 52 235 71 240 98C255 101 264 113 264 126C264 145 245 160 220 160H66C66 160 66 160 66 160Z" stroke="#EBDADF" stroke-width="2"/>
+  </g>
+</svg>

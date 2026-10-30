@@ -14,18 +14,18 @@
 <section id="intro-screen" class="screen intro" aria-label="Invitation">
   <div class="invitation-scene" id="invitation-scene">
     <img src="/assets/cover.webp" alt="You are warmly invited to — watercolor envelope" class="cover-art" fetchpriority="high" />
-    <img src="/assets/opening.webp" alt="The envelope opens as a fluffy lamb appears" class="opening-art" />
+
     <button id="envelope-trigger" class="envelope-hotspot" type="button" aria-label="Open the envelope"></button>
   </div>
 </section>
 <section id="party-screen" class="screen party hidden" aria-label="Gender reveal invitation">
-  <img src="/assets/party.webp" class="party-art" alt="Gender reveal — celebrating the parents-to-be Peter and Lauren, with a lamb, envelope, balloons, and Team Boy and Team Girl clouds" />
+  <div class="party-illustration"><img src="/assets/party.webp" class="party-art" alt="Gender reveal — celebrating the parents-to-be Peter and Lauren, with a lamb, envelope, balloons, and Team Boy and Team Girl clouds" /><img class="floating-balloons" src="/assets/balloons.svg" alt="" aria-hidden="true" /></div>
   <form id="voting-form" class="vote-form" novalidate>
     <label for="voter-name">Your name or nickname</label>
     <input id="voter-name" name="name" maxlength="40" autocomplete="nickname" placeholder="Enter your name" required>
     <div class="team-grid" role="group" aria-label="Choose a team">
-      <button type="button" class="team team-boy" data-choice="boy" aria-pressed="false"><span class="team-script">Team</span><span class="team-label">BOY</span><small>♡</small></button>
-      <button type="button" class="team team-girl" data-choice="girl" aria-pressed="false"><span class="team-script">Team</span><span class="team-label">GIRL</span><small>♡</small></button>
+      <button type="button" class="team team-boy" data-choice="boy" aria-pressed="false"><img class="team-cloud-art" src="/assets/cloud-blue.svg" alt=""/><span class="team-word"><span class="team-script">Team</span><span class="team-label">BOY</span></span></button>
+      <button type="button" class="team team-girl" data-choice="girl" aria-pressed="false"><img class="team-cloud-art" src="/assets/cloud-pink.svg" alt=""/><span class="team-word"><span class="team-script">Team</span><span class="team-label">GIRL</span></span></button>
     </div>
     <button id="vote-button" class="submit" type="submit" disabled>Submit my guess ♡</button>
     <p class="fine">One vote per browser · Your name and guess are saved</p>
@@ -45,7 +45,7 @@
 </section>
 <section id="results-screen" class="screen results hidden" aria-live="polite">
   <div class="results-heading"><div class="script-heading">Everyone's guesses</div><span class="little-heart">♡</span><p>Thank you for joining Peter & Lauren!</p></div>
-  <div class="result-clouds"><div class="result-cloud result-blue">Team <b>BOY</b><strong id="boy-count">0</strong></div><div class="result-cloud result-pink">Team <b>GIRL</b><strong id="girl-count">0</strong></div></div>
+  <div class="result-clouds"><div class="result-cloud result-blue"><img src="/assets/cloud-blue.svg" alt=""/><span>Team <b>BOY</b><strong id="boy-count">0</strong></span></div><div class="result-cloud result-pink"><img src="/assets/cloud-pink.svg" alt=""/><span>Team <b>GIRL</b><strong id="girl-count">0</strong></span></div></div>
   <div class="results-card">
     <div class="result-row"><span>Team Boy</span><b id="boy-percent">0%</b></div><div class="bar-track"><div class="bar-blue" id="boy-bar"></div></div>
     <div class="result-row"><span>Team Girl</span><b id="girl-percent">0%</b></div><div class="bar-track"><div class="bar-pink" id="girl-bar"></div></div>

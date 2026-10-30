@@ -1,34 +1,21 @@
-# Baby Gender Reveal V10 — responsive illustration & continuous animation
+# Baby Gender Reveal V11 — smoother transition and interactive illustrations
 
-A Cloudflare Pages + D1 site for Peter & Lauren.
+Cloudflare Pages + D1. Keep the `DB` binding on the existing Pages project.
 
-## Improvements versus V9
+## Changes
+- The cover transitions directly to the party screen (no intermediate page).
+- Main illustration retains natural aspect ratio on phones.
+- The party scene gently drifts; a small foreground watercolor-style balloon pair sways. Animations respect reduced-motion settings.
+- Team Boy and Team Girl use independent transparent SVG cloud shapes, not tiny screenshot rectangles.
+- Results clouds also use the same SVG shape.
+- Existing name/choice D1 API and share function remain.
 
-- Replaced the extra opening **screen** with a crossfade/slide animation inside the first screen: tap envelope → opening artwork appears → voting screen (no 1.1 second dead-end screen).
-- All supplied illustrations retain their natural aspect ratios (`height: auto`, `object-fit: contain`), including on narrow phones. No `object-fit: fill`.
-- Images re-encoded from existing V9 artwork at high quality, resampled 3x. **Resampling does NOT restore detail missing from the original low-resolution crop.** For truly sharper detail you need newly created, independent high-resolution illustrations rather than crops from a six-panel storyboard.
-- Restored both Team Boy and Team Girl cloud art as interactive choices.
-- Existing D1 names, vote submission, totals, and gender reveal preserved.
+## Actual gender
+Edit `public/reveal-config.js`: `actualGender: 'boy'`, `'girl'`, or `null` for results only.
+The front-end setting is visible to technically knowledgeable visitors and therefore does not provide secrecy.
 
-## Deployment
+## Deploy
+Upload the contents of this project folder to the repository root and commit. Use Cloudflare Pages with `public` as build output. Do not run migrations again if your existing `votes` table already includes `voter_name`.
 
-1. Copy the *contents* of this folder to the root of your existing GitHub repository.
-2. Commit changes; Cloudflare Pages automatically redeploys. Build output directory: `public`. No build command necessary.
-3. Keep your existing Pages D1 binding named `DB`.
-4. No database changes are needed if `voter_name` is already present.
-
-## Set the actual reveal
-
-Edit `public/reveal-config.js`. Change `actualGender: null` to `actualGender: 'boy'` or `'girl'`. With `null`, voting shows results without revealing the sex.
-
-This is a front-end configuration file and visitors with technical knowledge can inspect the answer before submitting a vote.
-
-## Testing
-
-For a new vote, use another browser or delete the relevant D1 test record. Deleting records does not delete the table. Test on a narrow phone and a desktop browser.
-
-## Limitations
-
-- Envelope opening is an animated crossfade between two unified illustration frames, **not** a newly hand-animated flap or a separately rigged lamb. It is smoother than V9's three-screen sequence but still uses fixed illustration frames.
-- Backgrounds and illustrated words are raster image content; they are not sharp SVG lettering. Replacing the source artwork with separate 1200px+ illustrated scenes is necessary for consistently crisp high-DPI phones.
-- One vote per browser is a convenience restriction, not strong identity validation.
+## Important image-quality limitation
+The large illustrations in this version are carried over from V10. They were originally crops of a single low-resolution mockup; enlarging them cannot restore lost watercolor detail. A truly crisp version requires newly generated source artwork for each scene, ideally at >=1200 pixels wide, rather than resizing existing images.
