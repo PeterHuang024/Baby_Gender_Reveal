@@ -12,14 +12,18 @@
   const resultsPanel = document.querySelector('#results-panel');
   const statusMessage = document.querySelector('#status-message');
   const shareButton = document.querySelector('#share-button');
-  const actualGender = window.BABY_REVEAL_CONFIG?.actualGender;
   const genderRevealPanel = document.querySelector('#gender-reveal-panel');
   const seeResultsButton = document.querySelector('#see-results-button');
-  let submittedThisVisit = false;
+  const celebrationCloud = document.querySelector('#celebration-cloud');
+  const celebrationCloudMain = document.querySelector('#celebration-cloud-main');
+  const revealTitle = document.querySelector('#gender-reveal-title');
+  const revealCaption = document.querySelector('#gender-reveal-caption');
+  const actualGender = window.BABY_REVEAL_CONFIG?.actualGender;
 
   let selectedChoice = null;
   let busy = false;
   let introOpened = false;
+  let latestResults = null;
 
   function getVoterId() {
     let id;
@@ -30,7 +34,6 @@
     }
     return id;
   }
-
   const voterId = getVoterId();
 
   function setStatus(message) {
@@ -62,6 +65,7 @@
   }
 
   function renderResults(data) {
+    latestResults = data;
     const boy = Number(data.boy) || 0;
     const girl = Number(data.girl) || 0;
     const total = boy + girl;
@@ -74,17 +78,25 @@
     document.querySelector('#girl-bar').style.width = `${girlPercent}%`;
     document.querySelector('#total-votes').textContent = total.toLocaleString('en-US');
     votePanel.classList.add('hidden');
+    genderRevealPanel.classList.add('hidden');
     resultsPanel.classList.remove('hidden');
-    if (submittedThisVisit && (actualGender === 'boy' || actualGender === 'girl')) {
-      const isBoy = actualGender === 'boy';
-      genderRevealPanel.classList.toggle('is-boy', isBoy);
-      genderRevealPanel.classList.toggle('is-girl', !isBoy);
-      document.querySelector('#gender-reveal-title').textContent = isBoy ? `It's a Boy!` : `It's a Girl!`;
-      document.querySelector('#gender-reveal-symbol').textContent = isBoy ? '🩵' : '🩷';
-      document.querySelector('#gender-reveal-caption').textContent = 'A little bundle of love is on the way!';
-      resultsPanel.classList.add('hidden');
-      genderRevealPanel.classList.remove('hidden');
-    }
+    setStatus('');
+  }
+
+  function showGenderReveal(data) {
+    latestResults = data;
+    const gender = actualGender === 'girl' ? 'girl' : 'boy';
+    genderRevealPanel.classList.remove('hidden');
+    resultsPanel.classList.add('hidden');
+    votePanel.classList.add('hidden');
+    genderRevealPanel.classList.remove('is-boy', 'is-girl');
+    genderRevealPanel.classList.add(gender === 'boy' ? 'is-boy' : 'is-girl');
+    celebrationCloud.classList.remove('replay');
+    void celebrationCloud.offsetWidth;
+    celebrationCloud.classList.add('replay');
+    celebrationCloudMain.textContent = gender === 'boy' ? 'BOY' : 'GIRL';
+    revealTitle.textContent = gender === 'boy' ? "It's a Boy!" : "It's a Girl!";
+    revealCaption.textContent = `${data.yourName ? `${data.yourName}, ` : ''}thank you for celebrating with us!`;
     setStatus('');
   }
 
@@ -122,15 +134,15 @@
 
     setBusy(true);
     setStatus('');
-
     try {
       const response = await fetch('/api/votes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ voterId, choice: selectedChoice, name })
       });
-      submittedThisVisit = true;
-      renderResults(await readJson(response));
+      const data = await readJson(response);
+      if (actualGender === 'boy' || actualGender === 'girl') showGenderReveal(data);
+      else renderResults(data);
     } catch (error) {
       setStatus(error.message || 'Submission failed. Please try again.');
     } finally {
@@ -138,15 +150,14 @@
     }
   });
 
-  seeResultsButton.addEventListener('click', () => {
-    genderRevealPanel.classList.add('hidden');
-    resultsPanel.classList.remove('hidden');
+  seeResultsButton?.addEventListener('click', () => {
+    if (latestResults) renderResults(latestResults);
   });
 
-  shareButton.addEventListener('click', async () => {
+  shareButton?.addEventListener('click', async () => {
     const url = location.origin + location.pathname;
     const data = {
-      title: 'Baby Gender Guessing',
+      title: 'Baby Gender Reveal',
       text: 'Join us and vote: Team Boy or Team Girl? 🩵🩷',
       url
     };
@@ -166,11 +177,13 @@
     .then(readJson)
     .then(data => {
       if (data.yourChoice) {
-        // Keep the invitation envelope as the entry point even for returning visitors.
+        revealScreen.classList.remove('hidden');
+        introScreen.classList.add('hidden');
+        introOpened = true;
         renderResults(data);
       }
     })
     .catch(() => {
-      /* Ignore and keep voting available. */
+      /* keep page usable */
     });
 })();

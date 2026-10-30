@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#F5EBDD" />
   <meta name="description" content="Cast your vote and guess if the baby will be a boy or a girl." />
-  <title>Baby Gender Guessing</title>
+  <title>Baby Gender Reveal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="/style.css" />
@@ -18,19 +18,22 @@
 
   <main class="site-shell">
     <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
-      <h1 id="intro-title" class="intro-kicker fade-item fade-1"><span>You are</span><em>warmly</em><span>invited to...</span></h1>
+      <h1 id="intro-title" class="intro-kicker fade-item fade-1">
+        <span class="intro-small">You are</span>
+        <em>warmly</em>
+        <span class="intro-small">invited to...</span>
+      </h1>
 
       <button id="envelope-trigger" class="envelope-trigger fade-item fade-2" type="button" aria-label="Open the envelope">
         <span class="envelope envelope-intro" aria-hidden="true">
           <span class="envelope-shadow"></span>
+          <span class="envelope-paper"></span>
           <span class="envelope-back"></span>
-          <span class="envelope-letter"></span>
           <span class="envelope-front"></span>
           <span class="envelope-flap"></span>
-          <span class="seal">✿</span>
+          <span class="envelope-seal"></span>
         </span>
       </button>
-      <img src="/goose.svg" class="intro-goose fade-item fade-2" alt="" aria-hidden="true" />
 
       <p class="intro-helper fade-item fade-3">Open the envelope</p>
     </section>
@@ -41,46 +44,60 @@
         <p class="party-subtitle">Celebrating the parents-to-be</p>
         <h1 id="main-title" class="party-names">Peter &amp; Lauren</h1>
 
-        <div class="scene-wrap">
-          <div class="arched-paper" aria-hidden="true"></div>
-          <div class="label-cloud cloud-boy" aria-hidden="true"><span>team</span><strong>BOY</strong></div>
-          <div class="label-cloud cloud-girl" aria-hidden="true"><span>team</span><strong>GIRL</strong></div>
+        <div class="scene-wrap" aria-hidden="true">
+          <div class="arched-paper"></div>
 
-          <div class="hero-scene" aria-hidden="true">
-            <div class="keepsake keepsake-one"></div><div class="keepsake keepsake-two"></div>
+          <div class="decor-cloud decor-cloud-boy">
+            <span class="cloud-script">team</span>
+            <span class="cloud-main">BOY</span>
+          </div>
+
+          <div class="decor-cloud decor-cloud-girl">
+            <span class="cloud-script">team</span>
+            <span class="cloud-main">GIRL</span>
+          </div>
+
+          <div class="hero-scene">
+            <div class="celebrate-balloon balloon-left-blue"></div>
+            <div class="celebrate-balloon balloon-left-pink"></div>
+            <div class="celebrate-balloon balloon-right-blue"></div>
+            <div class="celebrate-balloon balloon-right-pink"></div>
+            <div class="balloon-string string-left-a"></div>
+            <div class="balloon-string string-left-b"></div>
+            <div class="balloon-string string-right-a"></div>
+            <div class="balloon-string string-right-b"></div>
+
             <div class="envelope envelope-stage">
               <span class="envelope-shadow"></span>
+              <span class="envelope-paper"></span>
               <span class="envelope-back"></span>
-              <span class="envelope-letter"></span>
               <span class="envelope-front"></span>
               <span class="envelope-flap"></span>
             </div>
 
-            <div class="sheep-pop">
-              <div class="balloon-string string-left"></div>
-              <div class="balloon-string string-right"></div>
-              <div class="balloon balloon-blue"></div>
-              <div class="balloon balloon-pink"></div>
-
-              <div class="sheep">
-                <div class="sheep-ear sheep-ear-left"></div>
-                <div class="sheep-ear sheep-ear-right"></div>
-                <div class="sheep-body"></div>
-                <div class="sheep-face">
-                  <div class="eye eye-left"></div>
-                  <div class="eye eye-right"></div>
-                  <div class="nose"></div>
-                  <div class="blush blush-left"></div>
-                  <div class="blush blush-right"></div>
-                </div>
-                <div class="leg leg-1"></div>
-                <div class="leg leg-2"></div>
-                <div class="leg leg-3"></div>
-                <div class="leg leg-4"></div>
+            <div class="sheep-illustration">
+              <div class="sheep-puff puff-a"></div>
+              <div class="sheep-puff puff-b"></div>
+              <div class="sheep-puff puff-c"></div>
+              <div class="sheep-puff puff-d"></div>
+              <div class="sheep-puff puff-e"></div>
+              <div class="sheep-face">
+                <div class="sheep-ear ear-left"></div>
+                <div class="sheep-ear ear-right"></div>
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="cheek cheek-left"></div>
+                <div class="cheek cheek-right"></div>
+                <div class="nose"></div>
               </div>
+              <div class="sheep-bow bow-left"></div>
+              <div class="sheep-bow bow-right"></div>
+              <div class="sheep-leg leg-a"></div>
+              <div class="sheep-leg leg-b"></div>
+              <div class="sheep-leg leg-c"></div>
+              <div class="sheep-leg leg-d"></div>
             </div>
           </div>
-          <img class="stage-goose" src="/goose.svg" alt="" aria-hidden="true" />
         </div>
 
         <section id="voting-panel" class="vote-card" aria-label="Voting panel">
@@ -91,20 +108,37 @@
           </div>
 
           <div class="choice-grid" role="group" aria-label="Choose baby gender">
-            <button type="button" class="choice choice-boy" data-choice="boy" aria-pressed="false">
-              <span class="choice-icon" aria-hidden="true">🩵</span>
-              <span class="choice-caption">TEAM BOY</span>
-              <span class="choice-title">Boy</span>
+            <button type="button" class="choice-cloud choice-boy" data-choice="boy" aria-pressed="false">
+              <span class="cloud-script">team</span>
+              <span class="cloud-main">BOY</span>
             </button>
-            <button type="button" class="choice choice-girl" data-choice="girl" aria-pressed="false">
-              <span class="choice-icon" aria-hidden="true">🩷</span>
-              <span class="choice-caption">TEAM GIRL</span>
-              <span class="choice-title">Girl</span>
+            <button type="button" class="choice-cloud choice-girl" data-choice="girl" aria-pressed="false">
+              <span class="cloud-script">team</span>
+              <span class="cloud-main">GIRL</span>
             </button>
           </div>
 
           <button type="button" id="vote-button" class="primary-button" disabled>Submit my guess</button>
           <p class="fine-print">One vote per browser. Results appear right after voting.</p>
+        </section>
+
+        <section id="gender-reveal-panel" class="gender-reveal-panel hidden" aria-live="polite" aria-label="Baby gender reveal">
+          <div class="party-burst burst-a" aria-hidden="true"></div>
+          <div class="party-burst burst-b" aria-hidden="true"></div>
+          <div class="party-burst burst-c" aria-hidden="true"></div>
+          <div class="party-burst burst-d" aria-hidden="true"></div>
+          <div class="sparkle sparkle-a" aria-hidden="true">✦</div>
+          <div class="sparkle sparkle-b" aria-hidden="true">✧</div>
+          <div class="sparkle sparkle-c" aria-hidden="true">✦</div>
+
+          <p class="reveal-small">The sweetest surprise...</p>
+          <div id="celebration-cloud" class="celebration-cloud">
+            <span class="cloud-script">team</span>
+            <span id="celebration-cloud-main" class="cloud-main">BOY</span>
+          </div>
+          <h2 id="gender-reveal-title">It's a Boy!</h2>
+          <p id="gender-reveal-caption" class="reveal-caption"></p>
+          <button id="see-results-button" class="share-button" type="button">See everyone's guesses ↓</button>
         </section>
 
         <section id="results-panel" class="results-panel hidden" aria-label="Voting results" aria-live="polite">
@@ -116,15 +150,6 @@
           <p class="total"><strong id="total-votes">0</strong> guesses have been submitted</p>
           <button type="button" id="share-button" class="share-button">Share this page ↗</button>
           <p class="fine-print">These are prediction results only, not the actual gender reveal.</p>
-        </section>
-
-        <section id="gender-reveal-panel" class="gender-reveal-panel hidden" aria-live="polite" aria-label="Baby gender reveal">
-          <div class="reveal-sparkle" aria-hidden="true">✧ ✦ ✧</div>
-          <p class="reveal-small">The sweetest surprise...</p>
-          <h2 id="gender-reveal-title">It's a...</h2>
-          <div id="gender-reveal-symbol" class="reveal-symbol" aria-hidden="true">♡</div>
-          <p id="gender-reveal-caption" class="reveal-caption"></p>
-          <button id="see-results-button" class="share-button" type="button">See everyone's guesses ↓</button>
         </section>
 
         <p id="status-message" role="status" class="status" aria-live="polite"></p>
