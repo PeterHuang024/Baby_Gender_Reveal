@@ -12,11 +12,11 @@
 <body>
 <main class="app">
 <section id="intro-screen" class="screen intro" aria-label="Invitation">
-  <img src="/assets/cover.webp" alt="You are warmly invited to — a watercolor letter sealed with a heart" class="cover-art" />
-  <button id="envelope-trigger" class="envelope-hotspot" type="button" aria-label="Open the envelope"></button>
-</section>
-<section id="opening-screen" class="screen opening hidden" aria-label="Opening your invitation">
-  <img src="/assets/opening.webp" alt="A fluffy little lamb peeks out from an open envelope with pink and blue balloons" />
+  <div class="invitation-scene" id="invitation-scene">
+    <img src="/assets/cover.webp" alt="You are warmly invited to — watercolor envelope" class="cover-art" fetchpriority="high" />
+    <img src="/assets/opening.webp" alt="The envelope opens as a fluffy lamb appears" class="opening-art" />
+    <button id="envelope-trigger" class="envelope-hotspot" type="button" aria-label="Open the envelope"></button>
+  </div>
 </section>
 <section id="party-screen" class="screen party hidden" aria-label="Gender reveal invitation">
   <img src="/assets/party.webp" class="party-art" alt="Gender reveal — celebrating the parents-to-be Peter and Lauren, with a lamb, envelope, balloons, and Team Boy and Team Girl clouds" />
