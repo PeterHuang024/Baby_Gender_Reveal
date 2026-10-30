@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" fill="none">
+  <defs>
+    <linearGradient id="paper" x1="80" y1="65" x2="414" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EBD6BB"/>
+      <stop offset="1" stop-color="#DFC09A"/>
+    </linearGradient>
+    <linearGradient id="paper2" x1="111" y1="96" x2="260" y2="251" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2E3CF"/>
+      <stop offset="1" stop-color="#E3C7A6"/>
+    </linearGradient>
+    <radialGradient id="seal" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(262 179) rotate(58.69) scale(53.6774)">
+      <stop stop-color="#D9B7A2"/>
+      <stop offset="1" stop-color="#B78C70"/>
+    </radialGradient>
+    <filter id="shadow" x="54" y="54" width="412" height="262" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="10"/>
+      <feGaussianBlur stdDeviation="10"/>
+      <feColorMatrix values="0 0 0 0 0.49 0 0 0 0 0.38 0 0 0 0 0.3 0 0 0 0.16 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1_2"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow_1_2" result="shape"/>
+    </filter>
+  </defs>
+  <ellipse cx="260" cy="298" rx="158" ry="18" fill="#DCC9B5" fill-opacity="0.45"/>
+  <g filter="url(#shadow)">
+    <rect x="78" y="70" width="364" height="214" rx="6" fill="url(#paper)"/>
+    <path d="M95 95H425L263 191L95 95Z" fill="#F4E7D5" fill-opacity="0.55"/>
+    <path d="M78 284L217 178L260 204L301 178L442 284H78Z" fill="url(#paper2)"/>
+    <path d="M78 72L259 202L442 72" stroke="#D4B290" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M78 284L210 175" stroke="#D9B794" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M442 284L309 175" stroke="#D9B794" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M78 72H442L260 186L78 72Z" fill="#E8C9A7"/>
+    <path d="M78 72H442L260 186L78 72Z" stroke="#D2AE87" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="260" cy="176" r="28" fill="url(#seal)"/>
+    <circle cx="260" cy="176" r="20" stroke="#9F745D" stroke-width="4" stroke-dasharray="2 5"/>
+    <circle cx="260" cy="176" r="28" stroke="#9F745D" stroke-width="2.4"/>
+    <path d="M250 171C255 161 266 163 268 171C270 179 262 184 260 191C257 184 248 180 250 171Z" fill="#F7EBDD"/>
+  </g>
+</svg>

@@ -1,8 +1,9 @@
 # Baby Gender Reveal Website (Cloudflare Pages + D1)
 
-This version includes:
-- Invitation intro screen with illustrated envelope
-- Illustrated second screen with envelope, sheep, balloons and cloud-style choices
+This version uses illustrated SVG artwork instead of CSS-only geometric shapes.
+It includes:
+- Invitation intro screen with illustrated sealed envelope
+- Main reveal screen with illustrated sheep, open envelope, balloons, and decorative team clouds
 - Name / nickname entry before voting
 - Team Boy / Team Girl shared voting stored in Cloudflare D1
 - Immediate post-vote gender reveal animation (if configured)
@@ -35,6 +36,14 @@ ALTER TABLE votes ADD COLUMN voter_name TEXT;
 2. Commit and push.
 3. Cloudflare Pages will redeploy automatically.
 4. Confirm your Pages project still has a D1 binding named `DB`.
+
+## Files
+- `public/assets/invite-envelope.svg` – illustrated intro envelope
+- `public/assets/scene-illustration.svg` – illustrated open envelope + sheep + balloons scene
+- `public/assets/cloud-blue.svg` / `cloud-pink.svg` – illustrated cloud artwork
+- `public/index.html` – page structure
+- `public/style.css` – layout and animations
+- `public/app.js` – invitation flow + voting logic
 
 ## Notes
 - One browser/device gets one vote based on a generated local voter ID.

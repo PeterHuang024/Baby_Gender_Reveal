@@ -25,14 +25,7 @@
       </h1>
 
       <button id="envelope-trigger" class="envelope-trigger fade-item fade-2" type="button" aria-label="Open the envelope">
-        <span class="envelope envelope-intro" aria-hidden="true">
-          <span class="envelope-shadow"></span>
-          <span class="envelope-paper"></span>
-          <span class="envelope-back"></span>
-          <span class="envelope-front"></span>
-          <span class="envelope-flap"></span>
-          <span class="envelope-seal"></span>
-        </span>
+        <img class="invite-envelope-art" src="/assets/invite-envelope.svg" alt="Illustrated envelope" />
       </button>
 
       <p class="intro-helper fade-item fade-3">Open the envelope</p>
@@ -45,58 +38,18 @@
         <h1 id="main-title" class="party-names">Peter &amp; Lauren</h1>
 
         <div class="scene-wrap" aria-hidden="true">
-          <div class="arched-paper"></div>
-
-          <div class="decor-cloud decor-cloud-boy">
-            <span class="cloud-script">team</span>
-            <span class="cloud-main">BOY</span>
-          </div>
-
-          <div class="decor-cloud decor-cloud-girl">
-            <span class="cloud-script">team</span>
-            <span class="cloud-main">GIRL</span>
+          <div class="decor-cloud decor-cloud-boy illustrated-cloud small-cloud blue-cloud">
+            <img src="/assets/cloud-blue.svg" alt="" />
+            <div class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">BOY</span></div>
           </div>
 
           <div class="hero-scene">
-            <div class="celebrate-balloon balloon-left-blue"></div>
-            <div class="celebrate-balloon balloon-left-pink"></div>
-            <div class="celebrate-balloon balloon-right-blue"></div>
-            <div class="celebrate-balloon balloon-right-pink"></div>
-            <div class="balloon-string string-left-a"></div>
-            <div class="balloon-string string-left-b"></div>
-            <div class="balloon-string string-right-a"></div>
-            <div class="balloon-string string-right-b"></div>
+            <img class="scene-art" src="/assets/scene-illustration.svg" alt="" />
+          </div>
 
-            <div class="envelope envelope-stage">
-              <span class="envelope-shadow"></span>
-              <span class="envelope-paper"></span>
-              <span class="envelope-back"></span>
-              <span class="envelope-front"></span>
-              <span class="envelope-flap"></span>
-            </div>
-
-            <div class="sheep-illustration">
-              <div class="sheep-puff puff-a"></div>
-              <div class="sheep-puff puff-b"></div>
-              <div class="sheep-puff puff-c"></div>
-              <div class="sheep-puff puff-d"></div>
-              <div class="sheep-puff puff-e"></div>
-              <div class="sheep-face">
-                <div class="sheep-ear ear-left"></div>
-                <div class="sheep-ear ear-right"></div>
-                <div class="eye eye-left"></div>
-                <div class="eye eye-right"></div>
-                <div class="cheek cheek-left"></div>
-                <div class="cheek cheek-right"></div>
-                <div class="nose"></div>
-              </div>
-              <div class="sheep-bow bow-left"></div>
-              <div class="sheep-bow bow-right"></div>
-              <div class="sheep-leg leg-a"></div>
-              <div class="sheep-leg leg-b"></div>
-              <div class="sheep-leg leg-c"></div>
-              <div class="sheep-leg leg-d"></div>
-            </div>
+          <div class="decor-cloud decor-cloud-girl illustrated-cloud small-cloud pink-cloud">
+            <img src="/assets/cloud-pink.svg" alt="" />
+            <div class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">GIRL</span></div>
           </div>
         </div>
 
@@ -108,13 +61,13 @@
           </div>
 
           <div class="choice-grid" role="group" aria-label="Choose baby gender">
-            <button type="button" class="choice-cloud choice-boy" data-choice="boy" aria-pressed="false">
-              <span class="cloud-script">team</span>
-              <span class="cloud-main">BOY</span>
+            <button type="button" class="choice-cloud illustrated-cloud blue-cloud" data-choice="boy" aria-pressed="false">
+              <img src="/assets/cloud-blue.svg" alt="" />
+              <span class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">BOY</span></span>
             </button>
-            <button type="button" class="choice-cloud choice-girl" data-choice="girl" aria-pressed="false">
-              <span class="cloud-script">team</span>
-              <span class="cloud-main">GIRL</span>
+            <button type="button" class="choice-cloud illustrated-cloud pink-cloud" data-choice="girl" aria-pressed="false">
+              <img src="/assets/cloud-pink.svg" alt="" />
+              <span class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">GIRL</span></span>
             </button>
           </div>
 
@@ -132,9 +85,9 @@
           <div class="sparkle sparkle-c" aria-hidden="true">✦</div>
 
           <p class="reveal-small">The sweetest surprise...</p>
-          <div id="celebration-cloud" class="celebration-cloud">
-            <span class="cloud-script">team</span>
-            <span id="celebration-cloud-main" class="cloud-main">BOY</span>
+          <div id="celebration-cloud" class="celebration-cloud illustrated-cloud blue-cloud">
+            <img id="celebration-cloud-image" src="/assets/cloud-blue.svg" alt="" />
+            <div class="cloud-label"><span class="cloud-script">team</span><span id="celebration-cloud-main" class="cloud-main">BOY</span></div>
           </div>
           <h2 id="gender-reveal-title">It's a Boy!</h2>
           <p id="gender-reveal-caption" class="reveal-caption"></p>

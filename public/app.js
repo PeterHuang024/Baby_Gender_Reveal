@@ -16,6 +16,7 @@
   const seeResultsButton = document.querySelector('#see-results-button');
   const celebrationCloud = document.querySelector('#celebration-cloud');
   const celebrationCloudMain = document.querySelector('#celebration-cloud-main');
+  const celebrationCloudImage = document.querySelector('#celebration-cloud-image');
   const revealTitle = document.querySelector('#gender-reveal-title');
   const revealCaption = document.querySelector('#gender-reveal-caption');
   const actualGender = window.BABY_REVEAL_CONFIG?.actualGender;
@@ -95,6 +96,7 @@
     void celebrationCloud.offsetWidth;
     celebrationCloud.classList.add('replay');
     celebrationCloudMain.textContent = gender === 'boy' ? 'BOY' : 'GIRL';
+    if (celebrationCloudImage) celebrationCloudImage.src = gender === 'boy' ? '/assets/cloud-blue.svg' : '/assets/cloud-pink.svg';
     revealTitle.textContent = gender === 'boy' ? "It's a Boy!" : "It's a Girl!";
     revealCaption.textContent = `${data.yourName ? `${data.yourName}, ` : ''}thank you for celebrating with us!`;
     setStatus('');
