@@ -60,3 +60,6 @@
 .result-cloud span{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 @media(max-width:480px){.team{min-height:115px}.floating-balloons{right:6%;top:31%;width:22%}}
 @media(prefers-reduced-motion:reduce){.party-art,.floating-balloons{animation:none!important}.opening-ghost{transition:none!important}}
+
+/* Final: remove the extra overlaid moving balloons; preserve the painted balloons in party.webp. */
+.floating-balloons{display:none!important}

@@ -19,3 +19,6 @@ Upload the contents of this project folder to the repository root and commit. Us
 
 ## Important image-quality limitation
 The large illustrations in this version are carried over from V10. They were originally crops of a single low-resolution mockup; enlarging them cannot restore lost watercolor detail. A truly crisp version requires newly generated source artwork for each scene, ideally at >=1200 pixels wide, rather than resizing existing images.
+
+## Final visual adjustment
+Removed the separate animated balloon overlay from the second screen, avoiding overlapping text. Balloons drawn into the main watercolor illustration remain in place. No music is included. Existing Cloudflare D1 schema and vote data are unchanged.
