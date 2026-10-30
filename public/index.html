@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff7f3" />
+  <meta name="description" content="你猜寶寶是男生還是女生？投下你的預測，看看大家怎麼猜！" />
+  <title>Boy or Girl? | 寶寶性別猜猜樂</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="glow pink-glow" aria-hidden="true"></div>
+  <div class="glow blue-glow" aria-hidden="true"></div>
+  <main class="page">
+    <div class="eyebrow"><span aria-hidden="true">✦</span> A LITTLE SURPRISE IS ON THE WAY <span aria-hidden="true">✦</span></div>
+    <section class="card" aria-labelledby="hero-title">
+      <div class="decoration decoration-left" aria-hidden="true">✿</div>
+      <div class="decoration decoration-right" aria-hidden="true">✧</div>
+      <div class="mini-cloud" aria-hidden="true">☁</div>
+      <div class="baby-icon" aria-hidden="true">🧸</div>
+      <p class="overline">BABY GENDER GUESSING GAME</p>
+      <h1 id="hero-title"><span class="pink-text">Boy</span> <span class="or">or</span> <span class="blue-text">Girl</span><span class="question">?</span></h1>
+      <p class="subtitle">小寶貝會是男生還是女生呢？</p>
+      <p class="helper">猜猜看，投下你神聖的一票 ♡</p>
+
+      <section id="voting-panel" aria-label="投票區">
+        <div class="choice-grid" role="group" aria-label="選擇寶寶性別">
+          <button type="button" class="choice choice-boy" data-choice="boy" aria-pressed="false">
+            <span class="choice-art" aria-hidden="true">🩵</span>
+            <span class="choice-english">TEAM BOY</span>
+            <span class="choice-title">男寶寶</span>
+            <span class="choice-bottom">It's a boy!</span>
+          </button>
+          <button type="button" class="choice choice-girl" data-choice="girl" aria-pressed="false">
+            <span class="choice-art" aria-hidden="true">🩷</span>
+            <span class="choice-english">TEAM GIRL</span>
+            <span class="choice-title">女寶寶</span>
+            <span class="choice-bottom">It's a girl!</span>
+          </button>
+        </div>
+        <button type="button" id="vote-button" class="primary-button" disabled>送出我的預測 <span aria-hidden="true">♡</span></button>
+        <p class="fine-print">每個裝置／瀏覽器限投一票，送出後無法更改</p>
+      </section>
+
+      <section id="results-panel" class="hidden" aria-label="投票結果" aria-live="polite">
+        <div class="result-banner"><span aria-hidden="true">✨</span><span id="thanks-line">謝謝你的參與！</span><span aria-hidden="true">✨</span></div>
+        <h2>大家都怎麼猜？</h2>
+        <p class="result-subtext">即時投票結果</p>
+        <div class="result-row"><div class="result-label"><span>🩵 男寶寶</span><strong id="boy-percent">0%</strong></div><div class="track"><div class="bar bar-boy" id="boy-bar" style="width:0%"></div></div></div>
+        <div class="result-row"><div class="result-label"><span>🩷 女寶寶</span><strong id="girl-percent">0%</strong></div><div class="track"><div class="bar bar-girl" id="girl-bar" style="width:0%"></div></div></div>
+        <p class="total"><strong id="total-votes">0</strong> 位親朋好友已參與</p>
+        <button type="button" id="share-button" class="share-button">分享給親朋好友 <span aria-hidden="true">↗</span></button>
+        <p class="fine-print">這是大家的預測，不代表寶寶的實際性別 ♡</p>
+      </section>
+      <p id="status-message" role="status" class="status" aria-live="polite"></p>
+      <div class="card-bottom" aria-hidden="true">✦ <span>little one, big love</span> ✦</div>
+    </section>
+    <footer>Made with ♡ for our little miracle</footer>
+  </main>
+</body>
+</html>
