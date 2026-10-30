@@ -1,62 +1,131 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#fff7f3" />
-  <meta name="description" content="你猜寶寶是男生還是女生？投下你的預測，看看大家怎麼猜！" />
-  <title>Boy or Girl? | 寶寶性別猜猜樂</title>
+  <meta name="theme-color" content="#F5EBDD" />
+  <meta name="description" content="Cast your vote and guess if the baby will be a boy or a girl." />
+  <title>Baby Gender Guessing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="/style.css" />
+  <script src="/reveal-config.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <div class="glow pink-glow" aria-hidden="true"></div>
-  <div class="glow blue-glow" aria-hidden="true"></div>
-  <main class="page">
-    <div class="eyebrow"><span aria-hidden="true">✦</span> A LITTLE SURPRISE IS ON THE WAY <span aria-hidden="true">✦</span></div>
-    <section class="card" aria-labelledby="hero-title">
-      <div class="decoration decoration-left" aria-hidden="true">✿</div>
-      <div class="decoration decoration-right" aria-hidden="true">✧</div>
-      <div class="mini-cloud" aria-hidden="true">☁</div>
-      <div class="baby-icon" aria-hidden="true">🧸</div>
-      <p class="overline">BABY GENDER GUESSING GAME</p>
-      <h1 id="hero-title"><span class="pink-text">Boy</span> <span class="or">or</span> <span class="blue-text">Girl</span><span class="question">?</span></h1>
-      <p class="subtitle">小寶貝會是男生還是女生呢？</p>
-      <p class="helper">猜猜看，投下你神聖的一票 ♡</p>
+  <div class="background-blur blur-one" aria-hidden="true"></div>
+  <div class="background-blur blur-two" aria-hidden="true"></div>
 
-      <section id="voting-panel" aria-label="投票區">
-        <div class="choice-grid" role="group" aria-label="選擇寶寶性別">
-          <button type="button" class="choice choice-boy" data-choice="boy" aria-pressed="false">
-            <span class="choice-art" aria-hidden="true">🩵</span>
-            <span class="choice-english">TEAM BOY</span>
-            <span class="choice-title">男寶寶</span>
-            <span class="choice-bottom">It's a boy!</span>
-          </button>
-          <button type="button" class="choice choice-girl" data-choice="girl" aria-pressed="false">
-            <span class="choice-art" aria-hidden="true">🩷</span>
-            <span class="choice-english">TEAM GIRL</span>
-            <span class="choice-title">女寶寶</span>
-            <span class="choice-bottom">It's a girl!</span>
-          </button>
-        </div>
-        <button type="button" id="vote-button" class="primary-button" disabled>送出我的預測 <span aria-hidden="true">♡</span></button>
-        <p class="fine-print">每個裝置／瀏覽器限投一票，送出後無法更改</p>
-      </section>
+  <main class="site-shell">
+    <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
+      <p class="intro-kicker fade-item fade-1">You are invited to...</p>
 
-      <section id="results-panel" class="hidden" aria-label="投票結果" aria-live="polite">
-        <div class="result-banner"><span aria-hidden="true">✨</span><span id="thanks-line">謝謝你的參與！</span><span aria-hidden="true">✨</span></div>
-        <h2>大家都怎麼猜？</h2>
-        <p class="result-subtext">即時投票結果</p>
-        <div class="result-row"><div class="result-label"><span>🩵 男寶寶</span><strong id="boy-percent">0%</strong></div><div class="track"><div class="bar bar-boy" id="boy-bar" style="width:0%"></div></div></div>
-        <div class="result-row"><div class="result-label"><span>🩷 女寶寶</span><strong id="girl-percent">0%</strong></div><div class="track"><div class="bar bar-girl" id="girl-bar" style="width:0%"></div></div></div>
-        <p class="total"><strong id="total-votes">0</strong> 位親朋好友已參與</p>
-        <button type="button" id="share-button" class="share-button">分享給親朋好友 <span aria-hidden="true">↗</span></button>
-        <p class="fine-print">這是大家的預測，不代表寶寶的實際性別 ♡</p>
-      </section>
-      <p id="status-message" role="status" class="status" aria-live="polite"></p>
-      <div class="card-bottom" aria-hidden="true">✦ <span>little one, big love</span> ✦</div>
+      <button id="envelope-trigger" class="envelope-trigger fade-item fade-2" type="button" aria-label="Open the envelope">
+        <span class="envelope envelope-intro" aria-hidden="true">
+          <span class="envelope-shadow"></span>
+          <span class="envelope-back"></span>
+          <span class="envelope-letter"></span>
+          <span class="envelope-front"></span>
+          <span class="envelope-flap"></span>
+          <span class="seal">♡</span>
+        </span>
+      </button>
+
+      <p class="intro-helper fade-item fade-3">Open the envelope</p>
     </section>
-    <footer>Made with ♡ for our little miracle</footer>
+
+    <section id="reveal-screen" class="reveal-screen hidden" aria-labelledby="main-title">
+      <div class="main-card">
+        <p class="party-kicker">Gender reveal</p>
+        <p class="party-subtitle">Celebrating the parents-to-be</p>
+        <h1 id="main-title" class="party-names">Peter &amp; Lauren</h1>
+
+        <div class="scene-wrap">
+          <div class="label-cloud cloud-boy" aria-hidden="true">boy</div>
+          <div class="label-cloud cloud-girl" aria-hidden="true">girl</div>
+
+          <div class="hero-scene" aria-hidden="true">
+            <div class="envelope envelope-stage">
+              <span class="envelope-shadow"></span>
+              <span class="envelope-back"></span>
+              <span class="envelope-letter"></span>
+              <span class="envelope-front"></span>
+              <span class="envelope-flap"></span>
+            </div>
+
+            <div class="sheep-pop">
+              <div class="balloon-string string-left"></div>
+              <div class="balloon-string string-right"></div>
+              <div class="balloon balloon-blue"></div>
+              <div class="balloon balloon-pink"></div>
+
+              <div class="sheep">
+                <div class="sheep-ear sheep-ear-left"></div>
+                <div class="sheep-ear sheep-ear-right"></div>
+                <div class="sheep-body"></div>
+                <div class="sheep-face">
+                  <div class="eye eye-left"></div>
+                  <div class="eye eye-right"></div>
+                  <div class="nose"></div>
+                  <div class="blush blush-left"></div>
+                  <div class="blush blush-right"></div>
+                </div>
+                <div class="leg leg-1"></div>
+                <div class="leg leg-2"></div>
+                <div class="leg leg-3"></div>
+                <div class="leg leg-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section id="voting-panel" class="vote-card" aria-label="Voting panel">
+          <div class="name-field">
+            <label for="voter-name">Your name or nickname</label>
+            <input id="voter-name" name="voter-name" type="text" maxlength="40" autocomplete="nickname" placeholder="e.g. Peter, Amy, Auntie May" required aria-describedby="name-hint" />
+            <p id="name-hint">Please enter your name before submitting your guess.</p>
+          </div>
+
+          <div class="choice-grid" role="group" aria-label="Choose baby gender">
+            <button type="button" class="choice choice-boy" data-choice="boy" aria-pressed="false">
+              <span class="choice-icon" aria-hidden="true">🩵</span>
+              <span class="choice-caption">TEAM BOY</span>
+              <span class="choice-title">Boy</span>
+            </button>
+            <button type="button" class="choice choice-girl" data-choice="girl" aria-pressed="false">
+              <span class="choice-icon" aria-hidden="true">🩷</span>
+              <span class="choice-caption">TEAM GIRL</span>
+              <span class="choice-title">Girl</span>
+            </button>
+          </div>
+
+          <button type="button" id="vote-button" class="primary-button" disabled>Submit my guess</button>
+          <p class="fine-print">One vote per browser. Results appear right after voting.</p>
+        </section>
+
+        <section id="results-panel" class="results-panel hidden" aria-label="Voting results" aria-live="polite">
+          <div class="result-banner"><span aria-hidden="true">✦</span><span id="thanks-line">Thank you for voting!</span><span aria-hidden="true">✦</span></div>
+          <h2>Current Results</h2>
+          <p class="result-subtext">Here is how everyone is guessing so far.</p>
+          <div class="result-row"><div class="result-label"><span>🩵 Team Boy</span><strong id="boy-percent">0%</strong></div><div class="track"><div class="bar bar-boy" id="boy-bar" style="width:0%"></div></div></div>
+          <div class="result-row"><div class="result-label"><span>🩷 Team Girl</span><strong id="girl-percent">0%</strong></div><div class="track"><div class="bar bar-girl" id="girl-bar" style="width:0%"></div></div></div>
+          <p class="total"><strong id="total-votes">0</strong> guesses have been submitted</p>
+          <button type="button" id="share-button" class="share-button">Share this page ↗</button>
+          <p class="fine-print">These are prediction results only, not the actual gender reveal.</p>
+        </section>
+
+        <section id="gender-reveal-panel" class="gender-reveal-panel hidden" aria-live="polite" aria-label="Baby gender reveal">
+          <div class="reveal-sparkle" aria-hidden="true">✧ ✦ ✧</div>
+          <p class="reveal-small">The sweetest surprise...</p>
+          <h2 id="gender-reveal-title">It's a...</h2>
+          <div id="gender-reveal-symbol" class="reveal-symbol" aria-hidden="true">♡</div>
+          <p id="gender-reveal-caption" class="reveal-caption"></p>
+          <button id="see-results-button" class="share-button" type="button">See everyone's guesses ↓</button>
+        </section>
+
+        <p id="status-message" role="status" class="status" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 </body>
 </html>
