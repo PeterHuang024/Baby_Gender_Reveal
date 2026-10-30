@@ -1,113 +1,13 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#F5EBDD" />
-  <meta name="description" content="Cast your vote and guess if the baby will be a boy or a girl." />
-  <title>Baby Gender Reveal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="/style.css" />
-  <script src="/reveal-config.js" defer></script>
-  <script src="/app.js" defer></script>
-</head>
-<body>
-  <div class="background-blur blur-one" aria-hidden="true"></div>
-  <div class="background-blur blur-two" aria-hidden="true"></div>
-
-  <main class="site-shell">
-    <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
-      <h1 id="intro-title" class="intro-kicker fade-item fade-1">
-        <span class="intro-small">You are</span>
-        <em>warmly</em>
-        <span class="intro-small">invited to...</span>
-      </h1>
-
-      <button id="envelope-trigger" class="envelope-trigger fade-item fade-2" type="button" aria-label="Open the envelope">
-        <img class="invite-envelope-art" src="/assets/invite-envelope.svg" alt="Illustrated envelope" />
-      </button>
-
-      <p class="intro-helper fade-item fade-3">Open the envelope</p>
-    </section>
-
-    <section id="reveal-screen" class="reveal-screen hidden" aria-labelledby="main-title">
-      <div class="main-card">
-        <p class="party-kicker">Gender reveal</p>
-        <p class="party-subtitle">Celebrating the parents-to-be</p>
-        <h1 id="main-title" class="party-names">Peter &amp; Lauren</h1>
-
-        <div class="scene-wrap" aria-hidden="true">
-          <div class="decor-cloud decor-cloud-boy illustrated-cloud small-cloud blue-cloud">
-            <img src="/assets/cloud-blue.svg" alt="" />
-            <div class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">BOY</span></div>
-          </div>
-
-          <div class="hero-scene">
-            <img class="scene-art" src="/assets/scene-illustration.svg" alt="" />
-          </div>
-
-          <div class="decor-cloud decor-cloud-girl illustrated-cloud small-cloud pink-cloud">
-            <img src="/assets/cloud-pink.svg" alt="" />
-            <div class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">GIRL</span></div>
-          </div>
-        </div>
-
-        <section id="voting-panel" class="vote-card" aria-label="Voting panel">
-          <div class="name-field">
-            <label for="voter-name">Your name or nickname</label>
-            <input id="voter-name" name="voter-name" type="text" maxlength="40" autocomplete="nickname" placeholder="e.g. Peter, Amy, Auntie May" required aria-describedby="name-hint" />
-            <p id="name-hint">Please enter your name before submitting your guess.</p>
-          </div>
-
-          <div class="choice-grid" role="group" aria-label="Choose baby gender">
-            <button type="button" class="choice-cloud illustrated-cloud blue-cloud" data-choice="boy" aria-pressed="false">
-              <img src="/assets/cloud-blue.svg" alt="" />
-              <span class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">BOY</span></span>
-            </button>
-            <button type="button" class="choice-cloud illustrated-cloud pink-cloud" data-choice="girl" aria-pressed="false">
-              <img src="/assets/cloud-pink.svg" alt="" />
-              <span class="cloud-label"><span class="cloud-script">team</span><span class="cloud-main">GIRL</span></span>
-            </button>
-          </div>
-
-          <button type="button" id="vote-button" class="primary-button" disabled>Submit my guess</button>
-          <p class="fine-print">One vote per browser. Results appear right after voting.</p>
-        </section>
-
-        <section id="gender-reveal-panel" class="gender-reveal-panel hidden" aria-live="polite" aria-label="Baby gender reveal">
-          <div class="party-burst burst-a" aria-hidden="true"></div>
-          <div class="party-burst burst-b" aria-hidden="true"></div>
-          <div class="party-burst burst-c" aria-hidden="true"></div>
-          <div class="party-burst burst-d" aria-hidden="true"></div>
-          <div class="sparkle sparkle-a" aria-hidden="true">✦</div>
-          <div class="sparkle sparkle-b" aria-hidden="true">✧</div>
-          <div class="sparkle sparkle-c" aria-hidden="true">✦</div>
-
-          <p class="reveal-small">The sweetest surprise...</p>
-          <div id="celebration-cloud" class="celebration-cloud illustrated-cloud blue-cloud">
-            <img id="celebration-cloud-image" src="/assets/cloud-blue.svg" alt="" />
-            <div class="cloud-label"><span class="cloud-script">team</span><span id="celebration-cloud-main" class="cloud-main">BOY</span></div>
-          </div>
-          <h2 id="gender-reveal-title">It's a Boy!</h2>
-          <p id="gender-reveal-caption" class="reveal-caption"></p>
-          <button id="see-results-button" class="share-button" type="button">See everyone's guesses ↓</button>
-        </section>
-
-        <section id="results-panel" class="results-panel hidden" aria-label="Voting results" aria-live="polite">
-          <div class="result-banner"><span aria-hidden="true">✦</span><span id="thanks-line">Thank you for voting!</span><span aria-hidden="true">✦</span></div>
-          <h2>Current Results</h2>
-          <p class="result-subtext">Here is how everyone is guessing so far.</p>
-          <div class="result-row"><div class="result-label"><span>🩵 Team Boy</span><strong id="boy-percent">0%</strong></div><div class="track"><div class="bar bar-boy" id="boy-bar" style="width:0%"></div></div></div>
-          <div class="result-row"><div class="result-label"><span>🩷 Team Girl</span><strong id="girl-percent">0%</strong></div><div class="track"><div class="bar bar-girl" id="girl-bar" style="width:0%"></div></div></div>
-          <p class="total"><strong id="total-votes">0</strong> guesses have been submitted</p>
-          <button type="button" id="share-button" class="share-button">Share this page ↗</button>
-          <p class="fine-print">These are prediction results only, not the actual gender reveal.</p>
-        </section>
-
-        <p id="status-message" role="status" class="status" aria-live="polite"></p>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#faf5ef"><meta name="description" content="Peter & Lauren's little surprise — baby gender guessing party"><title>Peter & Lauren · Baby Gender Reveal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="/style.css"><script src="/reveal-config.js" defer></script><script src="/app.js" defer></script></head>
+<body><main class="shell">
+<section class="intro screen" id="intro-screen" aria-labelledby="intro-heading">
+<div class="intro-content"><h1 id="intro-heading" class="intro-title"><span>You are</span><em>warmly</em><span>invited to...</span></h1><button class="envelope-button" id="envelope-trigger" aria-label="Open the envelope" type="button"><img src="/assets/watercolor-envelope.png" alt="Sealed watercolor invitation envelope" /></button><p class="open-copy">Open the envelope <span aria-hidden="true">♡</span></p></div></section>
+<section class="invitation screen hidden" id="reveal-screen" aria-labelledby="reveal-heading"><div class="paper">
+<header class="heading"><p class="heading-script" id="reveal-heading">Gender reveal</p><div class="tiny-divider">♡</div><p class="subtitle">Celebrating the parents-to-be</p><h1 class="names">Peter &amp; Lauren</h1></header>
+<div class="illustration" aria-label="Watercolor lamb in an envelope with pastel balloons"><div class="arch"></div><img class="scene-image" src="/assets/watercolor-scene.png" alt="An adorable fluffy lamb peeking out of an envelope, with pastel pink and blue balloons"><div class="scene-cloud scene-cloud-boy" aria-hidden="true"><img src="/assets/watercolor-boy-cloud.png" alt=""></div><div class="scene-cloud scene-cloud-girl" aria-hidden="true"><img src="/assets/watercolor-girl-cloud.png" alt=""></div></div>
+<section class="voting" id="voting-panel" aria-label="Vote for the baby"><label for="voter-name">Your name or nickname</label><input id="voter-name" type="text" maxlength="40" autocomplete="nickname" placeholder="Enter your name" aria-describedby="name-hint"><p class="hint" id="name-hint">Leave your name and pick your team ♡</p><div class="choices" role="group" aria-label="Choose your team"><button class="team choice-boy" type="button" data-choice="boy" aria-pressed="false"><img src="/assets/watercolor-boy-cloud.png" alt=""><span class="sr-only">Team Boy</span></button><button class="team choice-girl" type="button" data-choice="girl" aria-pressed="false"><img src="/assets/watercolor-girl-cloud.png" alt=""><span class="sr-only">Team Girl</span></button></div><button id="vote-button" class="cta" type="button" disabled>Submit my guess ♡</button><p class="hint last">One vote per browser · The surprise awaits!</p></section>
+<section id="gender-reveal-panel" class="celebration hidden" aria-label="Baby gender reveal" aria-live="polite"><div class="confetti" aria-hidden="true"></div><p class="reveal-overline">The sweetest surprise...</p><div class="winning-cloud" id="celebration-cloud"><img id="celebration-cloud-image" src="/assets/watercolor-boy-cloud.png" alt="The winning team"></div><h2 id="gender-reveal-title">It's a Boy!</h2><p id="gender-reveal-caption" class="reveal-caption"></p><button type="button" id="see-results-button" class="cta">See everyone's guesses ↓</button></section>
+<section class="results hidden" id="results-panel" aria-label="Voting results" aria-live="polite"><h2>Everyone's guesses</h2><p id="thanks-line" class="results-thanks">Thank you for joining!</p><div class="result-row"><div class="result-label"><span>Team Boy</span><strong id="boy-percent">0%</strong></div><div class="track"><div id="boy-bar" class="bar boy-bar"></div></div></div><div class="result-row"><div class="result-label"><span>Team Girl</span><strong id="girl-percent">0%</strong></div><div class="track"><div id="girl-bar" class="bar girl-bar"></div></div></div><p class="total"><strong id="total-votes">0</strong> sweet guesses so far</p><button id="share-button" type="button" class="outline">Share our invitation ↗</button><p class="hint">Percentages are guests' guesses, not the baby's actual gender.</p></section>
+<p id="status-message" class="status" role="status" aria-live="polite"></p><footer>made with love & a little magic ♡</footer></div></section>
+</main><div id="submitting-overlay" class="overlay hidden" role="status" aria-live="polite"><div class="overlay-card"><div class="overlay-heart">♡</div><p>Submitting<br>your guess...</p><div class="spinner"></div></div></div></body></html>

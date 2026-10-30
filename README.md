@@ -1,51 +1,43 @@
-# Baby Gender Reveal Website (Cloudflare Pages + D1)
+# Peter & Lauren — Korean Soft Pastel Gender Reveal
 
-This version uses illustrated SVG artwork instead of CSS-only geometric shapes.
-It includes:
-- Invitation intro screen with illustrated sealed envelope
-- Main reveal screen with illustrated sheep, open envelope, balloons, and decorative team clouds
-- Name / nickname entry before voting
-- Team Boy / Team Girl shared voting stored in Cloudflare D1
-- Immediate post-vote gender reveal animation (if configured)
-- Results page after the reveal animation
+Cloudflare Pages + D1 baby gender reveal voting website.
 
-## Important: configure the actual baby gender
+## Set the correct gender (REQUIRED to show the reveal)
 Edit `public/reveal-config.js`:
 
 ```js
-window.BABY_REVEAL_CONFIG = {
-  actualGender: null
-};
+window.BABY_REVEAL_CONFIG = { actualGender: 'boy' };
 ```
 
-Change `actualGender` to:
-- `'boy'` to show **It's a Boy!** after voting
-- `'girl'` to show **It's a Girl!** after voting
-- `null` to skip the reveal and go directly to results
+Use `'boy'` or `'girl'` (lowercase with quotes). The initial value is `null`, which means voting shows statistics without revealing a gender. **Please update this file before sharing with guests.** This setting is included in public JavaScript, so a technically knowledgeable guest could inspect it before voting.
+
+## Update your existing Cloudflare Pages site
+1. Unzip and copy the **contents** of `baby-gender-guess/` to the root of the GitHub repository `Baby_Gender_Reveal`, preserving folders.
+2. Commit and push to `main`.
+3. Keep Cloudflare Pages build output directory as `public` (no build command required; `exit 0` is also fine).
+4. Keep the production D1 binding named exactly `DB`.
+5. Existing votes remain unchanged.
 
 ## Database
-No new database migration is required beyond the existing `voter_name` column.
-If your production DB does not yet have it, run:
+If your D1 `votes` table already has a `voter_name` column, do not run any SQL. If it does not, apply `migrations/0002_add_voter_name.sql` **once**. This project does not require any extra tables.
 
+To see votes in D1 Console:
 ```sql
-ALTER TABLE votes ADD COLUMN voter_name TEXT;
+SELECT voter_name, choice, created_at FROM votes ORDER BY created_at DESC;
+```
+To reset *all* votes (irreversible, including real votes):
+```sql
+DELETE FROM votes;
 ```
 
-## Deploy update
-1. Replace the files in your GitHub repository with this version.
-2. Commit and push.
-3. Cloudflare Pages will redeploy automatically.
-4. Confirm your Pages project still has a D1 binding named `DB`.
+## Features
+- Invitation screen with watercolor envelope (tap to open)
+- Korean pastel watercolor scene with a small fluffy lamb and balloons
+- Two cloud-shaped voting buttons (both visible)
+- Shared name + choice storage through Pages Functions and D1
+- Submitting overlay, gender reveal animation, results and share
+- Browser identifier for one vote per browser (not strong anti-fraud)
+- Returning voters see reveal/results immediately
 
-## Files
-- `public/assets/invite-envelope.svg` – illustrated intro envelope
-- `public/assets/scene-illustration.svg` – illustrated open envelope + sheep + balloons scene
-- `public/assets/cloud-blue.svg` / `cloud-pink.svg` – illustrated cloud artwork
-- `public/index.html` – page structure
-- `public/style.css` – layout and animations
-- `public/app.js` – invitation flow + voting logic
-
-## Notes
-- One browser/device gets one vote based on a generated local voter ID.
-- If a visitor already voted before, revisiting the page goes straight to the results.
-- The reveal answer is stored client-side in `reveal-config.js`, so it is suitable for a fun reveal page but not perfect secrecy.
+## Limitations
+The reveal answer is public in `reveal-config.js` and is not securely secret. The artwork is included as local PNGs; Google Fonts need a connection and fall back gracefully. A submitted vote cannot be changed with the public interface.

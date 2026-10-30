@@ -1,191 +1,23 @@
-(() => {
-  'use strict';
-
-  const voterStorageKey = 'baby-guess-voter-id-v1';
-  const introScreen = document.querySelector('#intro-screen');
-  const revealScreen = document.querySelector('#reveal-screen');
-  const envelopeTrigger = document.querySelector('#envelope-trigger');
-  const choiceButtons = [...document.querySelectorAll('[data-choice]')];
-  const voteButton = document.querySelector('#vote-button');
-  const nameInput = document.querySelector('#voter-name');
-  const votePanel = document.querySelector('#voting-panel');
-  const resultsPanel = document.querySelector('#results-panel');
-  const statusMessage = document.querySelector('#status-message');
-  const shareButton = document.querySelector('#share-button');
-  const genderRevealPanel = document.querySelector('#gender-reveal-panel');
-  const seeResultsButton = document.querySelector('#see-results-button');
-  const celebrationCloud = document.querySelector('#celebration-cloud');
-  const celebrationCloudMain = document.querySelector('#celebration-cloud-main');
-  const celebrationCloudImage = document.querySelector('#celebration-cloud-image');
-  const revealTitle = document.querySelector('#gender-reveal-title');
-  const revealCaption = document.querySelector('#gender-reveal-caption');
-  const actualGender = window.BABY_REVEAL_CONFIG?.actualGender;
-
-  let selectedChoice = null;
-  let busy = false;
-  let introOpened = false;
-  let latestResults = null;
-
-  function getVoterId() {
-    let id;
-    try { id = localStorage.getItem(voterStorageKey); } catch (_) {}
-    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
-      id = crypto.randomUUID();
-      try { localStorage.setItem(voterStorageKey, id); } catch (_) {}
-    }
-    return id;
-  }
-  const voterId = getVoterId();
-
-  function setStatus(message) {
-    statusMessage.textContent = message || '';
-  }
-
-  function updateVoteButtonState() {
-    voteButton.disabled = busy || !selectedChoice || !nameInput.value.trim();
-  }
-
-  function setBusy(isBusy) {
-    busy = isBusy;
-    nameInput.disabled = isBusy;
-    choiceButtons.forEach(button => { button.disabled = isBusy; });
-    voteButton.textContent = isBusy ? 'Submitting...' : 'Submit my guess';
-    updateVoteButtonState();
-  }
-
-  function showRevealScreen() {
-    if (introOpened) return;
-    introOpened = true;
-    introScreen.classList.add('opening');
-    window.setTimeout(() => {
-      introScreen.classList.add('hidden');
-      revealScreen.classList.remove('hidden');
-      nameInput.focus({ preventScroll: false });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 900);
-  }
-
-  function renderResults(data) {
-    latestResults = data;
-    const boy = Number(data.boy) || 0;
-    const girl = Number(data.girl) || 0;
-    const total = boy + girl;
-    const boyPercent = total ? Math.round((boy / total) * 100) : 0;
-    const girlPercent = total ? 100 - boyPercent : 0;
-    document.querySelector('#thanks-line').textContent = `${data.yourName ? `${data.yourName}, ` : ''}you guessed ${data.yourChoice === 'boy' ? 'Team Boy' : 'Team Girl'}!`;
-    document.querySelector('#boy-percent').textContent = `${boyPercent}%`;
-    document.querySelector('#girl-percent').textContent = `${girlPercent}%`;
-    document.querySelector('#boy-bar').style.width = `${boyPercent}%`;
-    document.querySelector('#girl-bar').style.width = `${girlPercent}%`;
-    document.querySelector('#total-votes').textContent = total.toLocaleString('en-US');
-    votePanel.classList.add('hidden');
-    genderRevealPanel.classList.add('hidden');
-    resultsPanel.classList.remove('hidden');
-    setStatus('');
-  }
-
-  function showGenderReveal(data) {
-    latestResults = data;
-    const gender = actualGender === 'girl' ? 'girl' : 'boy';
-    genderRevealPanel.classList.remove('hidden');
-    resultsPanel.classList.add('hidden');
-    votePanel.classList.add('hidden');
-    genderRevealPanel.classList.remove('is-boy', 'is-girl');
-    genderRevealPanel.classList.add(gender === 'boy' ? 'is-boy' : 'is-girl');
-    celebrationCloud.classList.remove('replay');
-    void celebrationCloud.offsetWidth;
-    celebrationCloud.classList.add('replay');
-    celebrationCloudMain.textContent = gender === 'boy' ? 'BOY' : 'GIRL';
-    if (celebrationCloudImage) celebrationCloudImage.src = gender === 'boy' ? '/assets/cloud-blue.svg' : '/assets/cloud-pink.svg';
-    revealTitle.textContent = gender === 'boy' ? "It's a Boy!" : "It's a Girl!";
-    revealCaption.textContent = `${data.yourName ? `${data.yourName}, ` : ''}thank you for celebrating with us!`;
-    setStatus('');
-  }
-
-  async function readJson(response) {
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || 'Unable to connect right now. Please try again.');
-    return data;
-  }
-
-  envelopeTrigger?.addEventListener('click', showRevealScreen);
-
-  choiceButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      if (busy) return;
-      selectedChoice = button.dataset.choice;
-      choiceButtons.forEach(el => el.setAttribute('aria-pressed', String(el === button)));
-      updateVoteButtonState();
-      setStatus('');
-    });
-  });
-
-  nameInput.addEventListener('input', () => {
-    updateVoteButtonState();
-    setStatus('');
-  });
-
-  voteButton.addEventListener('click', async () => {
-    if (!selectedChoice || busy) return;
-    const name = nameInput.value.trim();
-    if (!name) {
-      setStatus('Please enter your name or nickname first.');
-      nameInput.focus();
-      return;
-    }
-
-    setBusy(true);
-    setStatus('');
-    try {
-      const response = await fetch('/api/votes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ voterId, choice: selectedChoice, name })
-      });
-      const data = await readJson(response);
-      if (actualGender === 'boy' || actualGender === 'girl') showGenderReveal(data);
-      else renderResults(data);
-    } catch (error) {
-      setStatus(error.message || 'Submission failed. Please try again.');
-    } finally {
-      setBusy(false);
-    }
-  });
-
-  seeResultsButton?.addEventListener('click', () => {
-    if (latestResults) renderResults(latestResults);
-  });
-
-  shareButton?.addEventListener('click', async () => {
-    const url = location.origin + location.pathname;
-    const data = {
-      title: 'Baby Gender Reveal',
-      text: 'Join us and vote: Team Boy or Team Girl? 🩵🩷',
-      url
-    };
-    try {
-      if (navigator.share) {
-        await navigator.share(data);
-      } else {
-        await navigator.clipboard.writeText(url);
-        shareButton.textContent = 'Link copied ✓';
-      }
-    } catch (error) {
-      if (error.name !== 'AbortError') setStatus('Sharing failed. You can copy the URL from your browser.');
-    }
-  });
-
-  fetch(`/api/votes?voterId=${encodeURIComponent(voterId)}`)
-    .then(readJson)
-    .then(data => {
-      if (data.yourChoice) {
-        revealScreen.classList.remove('hidden');
-        introScreen.classList.add('hidden');
-        introOpened = true;
-        renderResults(data);
-      }
-    })
-    .catch(() => {
-      /* keep page usable */
-    });
+(()=>{'use strict';
+const $=s=>document.querySelector(s), key='baby-guess-voter-id-v1';
+const intro=$('#intro-screen'),screen=$('#reveal-screen'),envelope=$('#envelope-trigger'),voting=$('#voting-panel'),results=$('#results-panel'),celebration=$('#gender-reveal-panel'),status=$('#status-message'),nameInput=$('#voter-name'),submit=$('#vote-button'),overlay=$('#submitting-overlay'),choices=[...document.querySelectorAll('[data-choice]')];
+const configured=window.BABY_REVEAL_CONFIG?.actualGender;const actualGender=configured==='boy'||configured==='girl'?configured:null;
+let selected=null,busy=false,opened=false,latest=null,hasVoted=false;
+let voterId;try{voterId=localStorage.getItem(key)}catch(_){};if(!voterId||!/^[0-9a-f-]{36}$/i.test(voterId)){voterId=crypto.randomUUID();try{localStorage.setItem(key,voterId)}catch(_){}}
+const setStatus=s=>{status.textContent=s||''};
+function updateButton(){submit.disabled=busy||!selected||!nameInput.value.trim()}
+function setBusy(b){busy=b;submit.textContent=b?'Submitting...':'Submit my guess ♡';nameInput.disabled=b;choices.forEach(x=>x.disabled=b);overlay.classList.toggle('hidden',!b);updateButton()}
+function open(){if(opened)return;opened=true;intro.classList.add('opening');setTimeout(()=>{intro.classList.add('hidden');screen.classList.remove('hidden');window.scrollTo({top:0,behavior:'instant'})},820)}
+function enterInstant(){opened=true;intro.classList.add('hidden');screen.classList.remove('hidden')}
+async function parse(r){const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||'Something went wrong. Please try again.');return data}
+function populateResults(d){latest=d;const b=Number(d.boy)||0,g=Number(d.girl)||0,t=b+g,bp=t?Math.round(100*b/t):0,gp=t?100-bp:0;$('#boy-percent').textContent=bp+'%';$('#girl-percent').textContent=gp+'%';$('#boy-bar').style.width=bp+'%';$('#girl-bar').style.width=gp+'%';$('#total-votes').textContent=t.toLocaleString('en-US');$('#thanks-line').textContent=`${d.yourName?d.yourName+', ':''}thank you for joining!`}
+function showResults(d){populateResults(d);voting.classList.add('hidden');celebration.classList.add('hidden');results.classList.remove('hidden');results.scrollIntoView({behavior:'smooth',block:'start'});setStatus('')}
+function showReveal(d){populateResults(d);voting.classList.add('hidden');results.classList.add('hidden');celebration.classList.remove('hidden');celebration.classList.toggle('is-boy',actualGender==='boy');celebration.classList.toggle('is-girl',actualGender==='girl');$('#celebration-cloud-image').src=actualGender==='boy'?'/assets/watercolor-boy-cloud.png':'/assets/watercolor-girl-cloud.png';$('#gender-reveal-title').textContent=actualGender==='boy'?"It's a Boy!":"It's a Girl!";$('#gender-reveal-caption').textContent=`${d.yourName?d.yourName+', ':''}thank you for celebrating with us!`;const cloud=$('#celebration-cloud');cloud.style.animation='none';void cloud.offsetHeight;cloud.style.animation='';celebration.scrollIntoView({behavior:'smooth',block:'start'});setStatus('')}
+envelope.addEventListener('click',open);
+choices.forEach(x=>x.addEventListener('click',()=>{if(busy)return;selected=x.dataset.choice;choices.forEach(y=>y.setAttribute('aria-pressed',String(x===y)));updateButton();setStatus('')}));
+nameInput.addEventListener('input',()=>{updateButton();setStatus('')});
+submit.addEventListener('click',async()=>{if(busy||!selected||!nameInput.value.trim())return;setBusy(true);setStatus('');try{const r=await fetch('/api/votes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({voterId,choice:selected,name:nameInput.value.trim()})});const d=await parse(r);setBusy(false);hasVoted=true;if(actualGender)showReveal(d);else showResults(d)}catch(e){setBusy(false);setStatus(e.message)}});
+$('#see-results-button').addEventListener('click',()=>{if(latest)showResults(latest)});
+$('#share-button').addEventListener('click',async()=>{const url=location.origin+location.pathname;try{if(navigator.share)await navigator.share({title:'Peter & Lauren · Gender Reveal',text:'Come guess: Team Boy or Team Girl? ♡',url});else{await navigator.clipboard.writeText(url);$('#share-button').textContent='Link copied ✓'}}catch(e){if(e.name!=='AbortError')setStatus('Please copy the website URL directly.')}});
+fetch('/api/votes?voterId='+encodeURIComponent(voterId)).then(parse).then(d=>{if(d.yourChoice&&!hasVoted){hasVoted=true;enterInstant();if(actualGender)showReveal(d);else showResults(d)}}).catch(()=>{});
 })();
