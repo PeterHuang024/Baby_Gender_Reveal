@@ -18,7 +18,7 @@
 
   <main class="site-shell">
     <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
-      <p class="intro-kicker fade-item fade-1">You are invited to...</p>
+      <h1 id="intro-title" class="intro-kicker fade-item fade-1"><span>You are</span><em>warmly</em><span>invited to...</span></h1>
 
       <button id="envelope-trigger" class="envelope-trigger fade-item fade-2" type="button" aria-label="Open the envelope">
         <span class="envelope envelope-intro" aria-hidden="true">
@@ -27,9 +27,10 @@
           <span class="envelope-letter"></span>
           <span class="envelope-front"></span>
           <span class="envelope-flap"></span>
-          <span class="seal">♡</span>
+          <span class="seal">✿</span>
         </span>
       </button>
+      <img src="/goose.svg" class="intro-goose fade-item fade-2" alt="" aria-hidden="true" />
 
       <p class="intro-helper fade-item fade-3">Open the envelope</p>
     </section>
@@ -41,10 +42,12 @@
         <h1 id="main-title" class="party-names">Peter &amp; Lauren</h1>
 
         <div class="scene-wrap">
-          <div class="label-cloud cloud-boy" aria-hidden="true">boy</div>
-          <div class="label-cloud cloud-girl" aria-hidden="true">girl</div>
+          <div class="arched-paper" aria-hidden="true"></div>
+          <div class="label-cloud cloud-boy" aria-hidden="true"><span>team</span><strong>BOY</strong></div>
+          <div class="label-cloud cloud-girl" aria-hidden="true"><span>team</span><strong>GIRL</strong></div>
 
           <div class="hero-scene" aria-hidden="true">
+            <div class="keepsake keepsake-one"></div><div class="keepsake keepsake-two"></div>
             <div class="envelope envelope-stage">
               <span class="envelope-shadow"></span>
               <span class="envelope-back"></span>
@@ -77,6 +80,7 @@
               </div>
             </div>
           </div>
+          <img class="stage-goose" src="/goose.svg" alt="" aria-hidden="true" />
         </div>
 
         <section id="voting-panel" class="vote-card" aria-label="Voting panel">

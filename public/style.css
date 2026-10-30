@@ -254,3 +254,47 @@ body{
 .gender-reveal-panel.is-girl{background:linear-gradient(135deg,#fffaf4,#f7e6e9)}
 .gender-reveal-panel.is-boy h2{color:#8fa8c5}.gender-reveal-panel.is-girl h2{color:#c995a5}
 @keyframes revealPop{0%{transform:scale(.4) translateY(25px);opacity:0}75%{transform:scale(1.12);opacity:1}100%{transform:scale(1);opacity:1}}
+/* V4 — illustrated countryside invitation, inspired by vintage stationery */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+:root{--bg:#F5EBDD;--bg-2:#E9D5B9;--bg-3:#E8D8C5;--ink:#8D7770;--muted:#A58B73;--line:#dcc6ac;--card:#fdf5e9;--boy:#B9C9DF;--girl:#E8BFC5;--accent:#EED9A8}
+body{background:linear-gradient(165deg,#fbf0e3 0%,#F5EBDD 60%,#f0dfc9 100%);font-family:'DM Sans',system-ui,sans-serif}
+.site-shell{max-width:710px}
+.intro-screen{position:relative;overflow:hidden;padding-bottom:20px}
+.intro-kicker{display:flex;flex-direction:column;align-items:center;font-family:'DM Sans',sans-serif;font-size:clamp(26px,6vw,36px);font-weight:600;line-height:1.1;letter-spacing:-.035em;color:#8D7770;margin:0 0 62px}
+.intro-kicker em{font-family:'Great Vibes',cursive;font-size:clamp(74px,16vw,118px);font-weight:400;line-height:.9;color:#a58b73;letter-spacing:0;transform:rotate(-5deg)}
+.intro-kicker span:last-child{font-size:.92em;margin-top:10px}
+.intro-helper{font-weight:600;letter-spacing:0;font-size:17px;margin-top:55px}
+.envelope-intro{width:min(83vw,360px);height:min(55vw,230px)}
+.envelope-back{background:linear-gradient(155deg,#e9d1b2,#dcb996);border-color:#cfae8c}
+.envelope-front{background:linear-gradient(180deg,#ead4b6,#e2c3a1);border-color:#d8b895}
+.envelope-front::before,.envelope-front::after{background:#e7c9a6}
+.envelope-flap{height:100%;clip-path:polygon(0 0,100% 0,50% 65%);background:#e6c8a8;border-color:#d4b28f;filter:drop-shadow(0 3px 2px rgba(128,93,61,.18))}
+.seal{top:64%;height:51px;width:51px;background:radial-gradient(circle at 40% 30%,#d6af95,#b48a6e);border:4px double #a47d66;color:#f8ead9;font-size:23px;box-shadow:0 2px 7px #72513e55}
+.intro-goose{position:absolute;width:clamp(106px,25vw,152px);left:calc(50% + 130px);top:calc(50% + 8px);filter:drop-shadow(0 5px 3px #a58b7333);pointer-events:none}
+.main-card{background:#fbf1e5;border:1px solid #e5d3bc;border-radius:9px;padding-top:35px;box-shadow:0 20px 55px #90735a22}
+.party-kicker{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,37px);text-transform:none;letter-spacing:0;font-weight:700;margin-bottom:3px}
+.party-subtitle{font-size:19px}
+.party-names{font-size:clamp(55px,10vw,82px);margin-top:7px;color:#A58B73}
+.scene-wrap{height:340px;max-width:560px}
+.arched-paper{position:absolute;left:18%;right:18%;top:0;height:320px;border-radius:190px 190px 8px 8px;background:linear-gradient(120deg,#f5dfc8,#f0d8bd 60%,#f7e5d1);opacity:.85}
+.label-cloud{background:#f1f2f5;border:1px solid #e4e3e6;width:143px;height:85px;display:flex;flex-direction:column;gap:0;line-height:1.05;filter:drop-shadow(0 4px 3px #a58b7322)}
+.label-cloud::before,.label-cloud::after{background:#f1f2f5}
+.label-cloud span{position:relative;z-index:2;font-family:'Great Vibes',cursive;font-size:27px;transform:rotate(-9deg)}
+.label-cloud strong{position:relative;z-index:2;font-family:'DM Sans',sans-serif;font-size:31px;letter-spacing:.05em;color:#9baec6}
+.cloud-boy{left:1%;top:24px;transform:rotate(-8deg)}
+.cloud-girl{right:1%;bottom:6px;background:#f7e6e8;transform:rotate(8deg)}
+.cloud-girl::before,.cloud-girl::after{background:#f7e6e8}
+.cloud-girl strong{color:#d79ca9}
+.hero-scene{height:280px;z-index:1}
+.envelope-stage{filter:drop-shadow(0 7px 8px #bda58a66)}
+.keepsake{position:absolute;width:95px;height:119px;bottom:76px;background:#f9f5ef;border:7px solid #f9f5ef;box-shadow:0 2px 9px #756b5a55;opacity:.92}
+.keepsake::before{content:'';display:block;height:100%;background:linear-gradient(155deg,#b9b5b0,#eee8df 45%,#a8a6a1);filter:grayscale(1)}
+.keepsake-one{left:calc(50% - 86px);transform:rotate(-12deg)}
+.keepsake-two{left:calc(50% + 2px);transform:rotate(6deg)}
+.sheep-pop{z-index:4;transform-origin:bottom center}
+.stage-goose{position:absolute;width:110px;bottom:5px;left:0;z-index:5;pointer-events:none}
+.vote-card,.results-panel,.gender-reveal-panel{background:#fffbf6;border-color:#e8d8c5}
+.choice-boy{background:#f0f4fa;border-color:#B9C9DF}
+.choice-girl{background:#fbf0f2;border-color:#E8BFC5}
+.primary-button{background:linear-gradient(95deg,#cbaea0,#b9c9df,#e8bfc5)}
+@media(max-width:640px){.intro-kicker{margin-bottom:52px}.intro-goose{left:calc(50% + 100px);top:calc(50% + 10px);width:98px}.intro-helper{margin-top:48px}.scene-wrap{height:320px}.arched-paper{left:11%;right:11%;height:290px}.label-cloud{width:101px;height:66px}.label-cloud strong{font-size:23px}.label-cloud span{font-size:22px}.cloud-boy{top:23px}.cloud-girl{bottom:10px}.stage-goose{width:75px;left:-8px}.keepsake{width:73px;height:94px;bottom:78px}}
